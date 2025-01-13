@@ -1,10 +1,20 @@
 spring:
   application:
     name: ConfigServer
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+  profiles:
+    active: native
   cloud:
     config:
       server:
-        git:
-          uri: file:///D:/work/msawork/local-repo
+        native:
+          search-locations: file:///D:/work/native
+#        git:
+#          uri: git@github.com:rana0122/spring--cloud-config.git
+#          uri: file:///D:/work/local-repo
 server:
   port: 8888

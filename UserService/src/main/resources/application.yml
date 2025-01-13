@@ -1,12 +1,11 @@
 spring:
-#  config:
-#    import: optional:configserver:http://127.0.0.1:8888/
-#    cloud:
-#      config:
-#       name: ecommerce
-#        name: user-service
   application:
     name: UserService
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
   datasource:
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
@@ -49,4 +48,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh,health,beans
+        include: refresh,health,beans,busrefresh
