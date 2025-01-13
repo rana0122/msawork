@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: ConfigServer
+  cloud:
+    config:
+      server:
+        git:
+          uri: file:///D:/work/msawork/local-repo
+server:
+  port: 8888

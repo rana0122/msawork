@@ -1,0 +1,97 @@
+
+spring:
+  application:
+   name: Gateway
+  cloud:
+    gateway:
+      routes:
+        - id: UserService
+          uri: lb://USERSERVICE
+          predicates:
+           - Path=/user-service/login
+           - Method=POST
+          filters:
+           - RemoveRequestHeader=Cookie
+           - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: UserService
+          uri: lb://USERSERVICE
+          predicates:
+            - Path=/user-service/users
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: UserService
+          uri: lb://USERSERVICE
+          predicates:
+            - Path=/user-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: UserService
+          uri: lb://USERSERVICE
+          predicates:
+            - Path=/user-service/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+        - id: CatalogsService
+          uri: lb://CATALOGSSERVICE
+          predicates:
+            - Path=/catalogs-service/**
+        - id: OrderService
+          uri: lb://ORDERSERVICE
+          predicates:
+            - Path=/order-service/**
+#        - id: firstService
+#          uri: lb://FIRSTSERVICE
+#          predicates:
+#            - Path=/first-service/**
+#          filters:
+##            - AddRequestHeader=first-request, first-request-header2
+##            - AddResponseHeader=first-response, first-response-header2
+#            - CustomFilter
+#        - id: secondService
+#          uri: lb://SECONDSERVICE
+#          predicates:
+#            - Path=/second-service/**
+#          filters:
+##            - AddRequestHeader=second-request, second-request-header2
+##            - AddResponseHeader=second-response, second-response-header2
+#            - name: CustomFilter
+#            - name: LoggingFilter
+#              args:
+#                baseMessage: Hi,there.
+#                preLogger: true
+#                postLogger: true
+#      default-filters:
+#        - name: GlobalFilter
+#          args:
+#            baseMessage: Spring Cloud Gateway Global Filter
+#            preLogger: true
+#            postLogger: true
+server:
+  port: 8000
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health,beans,httptrace
+
+#token:
+#  expiration_time: 86400000
+#  secret: thisisaverysecurekeywithatleast32characterslongthisisaverysecurekeywithatleast32characterslong
