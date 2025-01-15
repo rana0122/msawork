@@ -6,11 +6,11 @@ spring:
     port: 5672
     username: guest
     password: guest
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+#  datasource:
+#    url: jdbc:h2:mem:testdb
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
   h2:
@@ -34,9 +34,7 @@ eureka:
 
 logging:
   level:
-    com.example.userservice: DEBUG
-    org.springframework.cloud.config: DEBUG
-    org.springframework.core.env: DEBUG
+    com.example.userservice.client: DEBUG
 
 #token:
 #  expiration_time: 86400000
