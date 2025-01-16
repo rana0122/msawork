@@ -2,13 +2,12 @@ package com.example.orderservice.Service;
 
 import com.example.orderservice.JPA.OrderEntity;
 import com.example.orderservice.JPA.OrderRepository;
-import com.example.orderservice.VO.OrderDto;
+import com.example.orderservice.dto.OrderDto;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
