@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MatchingStrategy;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
@@ -36,6 +38,7 @@ public class UserServiceImpl implements UserService{
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final Environment environment;
     private final OrderServiceClient orderServiceClient;
+    private final CircuitBreakerFactory circuitBreakerFactory;
 //    private final RestTemplate restTemplate;
 
     @Override
@@ -88,9 +91,15 @@ public class UserServiceImpl implements UserService{
 //            }catch (FeignException e){
 //                log.error(e.getMessage());
 //            }
+//            ErrorDecoder
+//            List<ResponseOrder> orders =orderServiceClient.getOrders(userId);
+//        ordersList = orderServiceClient.getOrders(userId);
+        log.info("Before all order microservice");
 
-            List<ResponseOrder> orders =orderServiceClient.getOrders(userId);
-            userDto.setOrders(orders);
+        CircuitBreaker circuitBreaker =  circuitBreakerFactory.create("circuitBreaker");
+        List<ResponseOrder> ordersList = circuitBreaker.run(() -> orderServiceClient.getOrders(userId),
+                throwable -> new ArrayList<>());
+            userDto.setOrders(ordersList);
             return userDto;
 
         }else{
