@@ -1,4 +1,3 @@
-
 spring:
   application:
    name: Gateway
@@ -95,7 +94,13 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh,health,beans,httptrace,busrefresh
+        include: refresh,health,beans,httptrace,busrefresh,info,prometheus,metrics
+  metrics:
+    distribution:
+      percentiles-histogram:
+        users.status: true
+
+
 
 #token:
 #  expiration_time: 86400000

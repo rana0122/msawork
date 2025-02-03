@@ -1,9 +1,9 @@
 spring:
   application:
     name: UserService
-#  zipkin:
-#    base-url: http://127.0.0.1:9411
-#    enabled: true
+  zipkin:
+    base-url: http://127.0.0.1:9411
+    enabled: true
 #  sleuth:
 #    sampler:
 #      probability: 1.0
@@ -25,6 +25,9 @@ spring:
       settings:
         web-allow-others: true
       path: /h2
+  aop:
+    proxy-target-class: true
+    auto: true
 
 server:
   port: 0
@@ -41,8 +44,10 @@ eureka:
 logging:
   level:
     com.example.userservice.client: DEBUG
+    io.micrometer: DEBUG
+    org.springframework.boot.actuate: DEBUG
   pattern:
-    level: "%5p [%X{traceId:-},%X{spanId:-}]"
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 
 #token:
 #  expiration_time: 86400000
@@ -65,4 +70,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh,health,beans,busrefresh
+        include: refresh,health,beans,busrefresh,info,prometheus,metrics
+  metrics:
+    distribution:
+      percentiles-histogram:
+        users.status: true
+        users.welcome: true
+
