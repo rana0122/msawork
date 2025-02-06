@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CatalogsService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CatalogsService.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Gateway.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Gateway.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/OrderService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/OrderService.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/UserService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/UserService.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/discoveryService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/discoveryService.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/firstService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/firstService.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/msawork.iml" filepath="$PROJECT_DIR$/.idea/msawork.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/secondService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/secondService.main.iml" />
+    </modules>
+  </component>
+</project>
