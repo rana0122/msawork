@@ -33,6 +33,7 @@ public class OrderController {
 
     @GetMapping("/health_check")
     public String status(){
+        log.info("start health check data");
         return String.format("It's working in OrderService on Port %s",environment.getProperty("local.server.port"));
     }
 

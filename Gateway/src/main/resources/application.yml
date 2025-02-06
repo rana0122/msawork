@@ -70,7 +70,13 @@ spring:
             - Method=GET,POST
           filters:
             - RemoveRequestHeader=Cookie
-            - RewritePath=/order-service/(?<segment>.*), /$\{segment}
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/order-service/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
 #        - id: firstService
 #          uri: lb://FIRSTSERVICE
 #          predicates:
