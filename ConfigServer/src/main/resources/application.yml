@@ -2,19 +2,26 @@ spring:
   application:
     name: ConfigServer
   rabbitmq:
-    host: 127.0.0.1
+#    host: 127.0.0.1
+    host: rabbitmq
     port: 5672
     username: guest
     password: guest
   profiles:
-    active: native
+#    active: native
+    active: git
   cloud:
     config:
       server:
         native:
           search-locations: file:///D:/work/native
-#        git:
+        git:
+          uri: https://github.com/rana0122/spring--cloud-config.git
 #          uri: git@github.com:rana0122/spring--cloud-config.git
 #          uri: file:///D:/work/local-repo
+          default-label: main
+        #          username: <github-id>
+        #          password: <gihub-accessToken>
+        bootstrap: true
 server:
   port: 8888

@@ -1,6 +1,11 @@
 spring:
   application:
    name: discoveryService
+  cloud:
+    config:
+      uri: http://config-service:8888
+#      uri: http://127.0.0.1:8888
+      name: ecommerce
 server:
   port: 8761
 
@@ -8,3 +13,6 @@ eureka:
   client:
     fetch-registry: false
     register-with-eureka: false
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30

@@ -1,9 +1,9 @@
 spring:
   application:
     name: UserService
-  zipkin:
-    base-url: http://127.0.0.1:9411
-    enabled: true
+#  zipkin:
+#    base-url: http://zipkin:9411
+#    enabled: true
 #  sleuth:
 #    sampler:
 #      probability: 1.0
@@ -39,7 +39,8 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://127.0.0.1:8761/eureka
+      defaultZone: http://discovery-service:8761/eureka
+#      defaultZone: http://127.0.0.1:8761/eureka
 
 logging:
   level:
@@ -65,7 +66,9 @@ management:
       produce: B3
   zipkin:
     tracing:
-      endpoint: http://localhost:9411/api/v2/spans
+#      endpoint: http://localhost:9411/api/v2/spans
+      endpoint: http://zipkin:9411/api/v2/spans
+
 
   endpoints:
     web:

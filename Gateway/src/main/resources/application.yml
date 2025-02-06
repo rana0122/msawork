@@ -2,7 +2,8 @@ spring:
   application:
    name: Gateway
   rabbitmq:
-    host: 127.0.0.1
+    host: rabbitmq
+#    host: 127.0.0.1
     port: 5672
     username: guest
     password: guest
@@ -49,7 +50,11 @@ spring:
         - id: OrderService
           uri: lb://ORDERSERVICE
           predicates:
-            - Path=/order-service/**
+            - Path=/order-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/order-service/(?<segment>.*), /$\{segment}
 #        - id: firstService
 #          uri: lb://FIRSTSERVICE
 #          predicates:
@@ -84,7 +89,8 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://discovery-service:8761/eureka
+#      defaultZone: http://localhost:8761/eureka
 
 logging:
   level:

@@ -62,11 +62,6 @@ public class WebSecurityNew {
 //                                .requestMatchers(new AntPathRequestMatcher("/swagger-resources/**")).permitAll()
 //                                .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
                         .requestMatchers("/**").access(this::hasHostNameOrIp)
-//                                .requestMatchers("/**").access(
-//                                        new WebExpressionAuthorizationManager(
-//                                                "hasHostNameOrIp('localhost') or " +
-//                                                "hasHostNameOrIp('127.0.0.1') or " +
-//                                                "hasHostNameOrIp('192.168.45.83')")) // host pc ip address
                                 .anyRequest().authenticated()
                 )
                 .formLogin(Customizer.withDefaults())
