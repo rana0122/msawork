@@ -8,6 +8,7 @@ import com.example.userservice.vo.RequestUser;
 import com.example.userservice.vo.ResponseUser;
 import io.micrometer.core.annotation.Timed;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.core.env.Environment;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@Slf4j
 @RequestMapping("/")
 public class UserController {
     private final Environment environment;
@@ -36,6 +38,7 @@ public class UserController {
     @GetMapping("/health-check")
     @Timed(value="users.status", longTask = true)
     public String status() {
+        log.info("health-check start");
         return String.format("It's Working in User Service"
                 + "\n , port(local.server.port)=" + environment.getProperty("local.server.port")
                 + "\n , port(server.port)=" + environment.getProperty("server.port")
@@ -46,12 +49,14 @@ public class UserController {
     @GetMapping("/welcome")
     @Timed(value="users.welcome", longTask = true)
     public String welcome(){
+        log.info("welcome start");
 //        return environment.getProperty("greeting.message");
 //        return message;
         return greeting.getMessage();
     }
     @PostMapping("/users")
     public ResponseEntity<ResponseUser> createUser(@RequestBody RequestUser user){
+        log.info("users sign up start");
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         UserDto userDto = modelMapper.map(user, UserDto.class);
@@ -62,6 +67,7 @@ public class UserController {
     }
     @GetMapping("/users")
     public ResponseEntity<List<ResponseUser>> getUsers(){
+        log.info("users list start");
         Iterable<UserEntity> userList = userService.getAllUsers();
         List<ResponseUser> responseUsers = new ArrayList<>();
 
@@ -74,6 +80,7 @@ public class UserController {
 
     @GetMapping(value = "/users/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<ResponseUser> getUserById(@PathVariable("userId") String userId){
+        log.info("users info start");
         UserDto userDto = userService.getUserByUserId(userId);
         ResponseUser responseUser = new ModelMapper().map(userDto, ResponseUser.class);
 

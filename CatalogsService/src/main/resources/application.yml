@@ -1,6 +1,6 @@
 spring:
   application:
-    name: CatalogsService
+    name: catalog-service
   h2:
     console:
       enabled: true
